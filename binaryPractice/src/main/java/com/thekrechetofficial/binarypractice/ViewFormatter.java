@@ -45,9 +45,10 @@ public class ViewFormatter {
         return result.toString();
     }
 
-    public static String getFormattedFourBytesBitsViewStringOp(int number) {
+    public static String getFormattedFourBytesBitsViewStringOp(float number) {
 
-        String bits = Integer.toBinaryString(number);
+        String bits = Integer.toBinaryString(Float.floatToIntBits(number));
+        
         char[] bitsArray = bits.toCharArray();
         StringBuilder sb = new StringBuilder();
 
@@ -58,6 +59,29 @@ public class ViewFormatter {
             }
             if (i >= (FOUR_BYTES - bitsArray.length)) {
                 sb.append(bitsArray[i - (FOUR_BYTES - bitsArray.length)]);
+            } else {
+                sb.append(suit);
+            }
+        }
+
+        return sb.toString();
+    }
+    
+    public static String getFormattedEightBytesBitsViewStringOp(double number) {
+
+        long doubleToLongBits = Double.doubleToLongBits(number);
+        String bits = Long.toBinaryString(doubleToLongBits);
+        
+        char[] bitsArray = bits.toCharArray();
+        StringBuilder sb = new StringBuilder();
+
+        int suit = number < 0 ? 1 : 0;
+        for (int i = 0; i < EIHGT_BYTES; i++) {
+            if (i > 0 && i % 4 == 0) {
+                sb.append(" ");
+            }
+            if (i >= (EIHGT_BYTES - bitsArray.length)) {
+                sb.append(bitsArray[i - (EIHGT_BYTES - bitsArray.length)]);
             } else {
                 sb.append(suit);
             }
